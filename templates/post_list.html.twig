@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Post list{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            {% include 'header.html.twig' %}<br>
+            <hr>
+            <h4>{{ form_label(form_search) }}</h4>
+            {{ form(form_search) }}
+            <a href="{{ path('blog_post_list') }}">Reset filter</a><br><br><br>
+            <hr>
+            {% if app.user %}
+                <a href="{{ path('blog_post_new') }}">New post</a><br>
+            {% endif %}
+            {% for post in posts %}
+                <h4><a href="{{ path('blog_post', {id: post.id}) }}">{{ post.title }}</a></h4>
+                {{ post.body }}
+            {% endfor %}
+        {% endblock %}
+    </body>
+</html>
